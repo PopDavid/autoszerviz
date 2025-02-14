@@ -18,5 +18,9 @@ namespace autoszerviz
             Salary = salary;
             Available = true;
         }
+
+        public override string ToString() {
+            return $"Name: {Name}\n\tSalary: {Salary}\n\tAvailable: {Available}";
+        }
     }
 }
