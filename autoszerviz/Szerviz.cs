@@ -107,7 +107,7 @@ namespace autoszerviz
 
         public override string ToString()
         {
-            return $"Name: {Name}\nAddress: {Address}\nAlkatreszek: {PrintAlkatreszek()}\nSzerelok: {PrintSzerelok()}";
+            return $"Name: {Name}\nAddress: {Address}\nAlkatreszek: {PrintAlkatreszek()}\nSzerelok: {PrintSzerelok()}\n";
         }
             
         public string forward_time(int hour)

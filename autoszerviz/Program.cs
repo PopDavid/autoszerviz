@@ -17,6 +17,7 @@ namespace autoszerviz
             while (!int.TryParse(Console.ReadLine(), out szam))
             {
                 Console.WriteLine("Hibás adat, adjon meg egy számot!");
+                Console.Write(kerdes);
             }
             return szam;
         }
@@ -28,7 +29,7 @@ namespace autoszerviz
             "Szerelők listázása",
             "Szerelendő autók listázása",
             "Visszaadott autók listázása",
-            "bevétel kiírása",
+            "Bevétel kiírása",
             "Idő pörgetése",
             "Kilépés"
         };
@@ -39,39 +40,47 @@ namespace autoszerviz
             int valasz = menu(menu_points);
             while (valasz != 0)
             {
-                //Console.WriteLine(valasz);
-                switch (valasz)
+                try
                 {
-                    case 1:
-                        new_car();
-                        break;
-                    case 2:
-                        mod_rep();
-                        break;
-                    case 3:
-                        C_clear();
-                        Console.WriteLine(szervisz.PrintSzerelok());
-                        break;
-                    case 4:
-                        C_clear();
-                        Console.WriteLine(szervisz.PrintSzerelendo());
-                        break;
-                    case 5:
-                        C_clear();
-                        Console.WriteLine(szervisz.PrintMegszerelt());
-                        break;
-                    case 6:
-                        C_clear();
-                        Console.WriteLine($"Bevétel: {szervisz.Bevetel}");
-                        break;
-                    case 7:
-                        forward_time();
-                        break;
+                    //Console.WriteLine(valasz);
+                    switch (valasz)
+                    {
+                        case 1:
+                            new_car();
+                            break;
+                        case 2:
+                            mod_rep();
+                            break;
+                        case 3:
+                            C_clear();
+                            Console.WriteLine(szervisz.PrintSzerelok());
+                            break;
+                        case 4:
+                            C_clear();
+                            Console.WriteLine(szervisz.PrintSzerelendo());
+                            break;
+                        case 5:
+                            C_clear();
+                            Console.WriteLine(szervisz.PrintMegszerelt());
+                            break;
+                        case 6:
+                            C_clear();
+                            Console.WriteLine($"Bevétel: {szervisz.Bevetel}");
+                            break;
+                        case 7:
+                            forward_time();
+                            break;
+                    }
+
                 }
-                Console.WriteLine("Press any button to continue");
-                Console.ReadKey(true);
-                C_clear();
-                valasz = menu(menu_points);
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            Console.WriteLine("Press any button to continue");
+            Console.ReadKey(true);
+            C_clear();
+            valasz = menu(menu_points);
 
 
 
@@ -144,12 +153,12 @@ namespace autoszerviz
             Console.WriteLine(szervisz.forward_time(hour));
             if (tartok.Month != new_time.Month)
             {
-                Console.WriteLine($"Havi bevétel: {szervisz.Bevetel}");
+                Console.WriteLine($"Bevétel: {szervisz.Bevetel}");
                 try
                 {
                     Console.WriteLine(szervisz.fizetes());
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("Nincs elég pénz kifizetni az alkalmazottakat, csődbe ment a cég.");
                 }
@@ -209,7 +218,7 @@ namespace autoszerviz
                     {
                         salary = szam_bekeres("Szerelő új fizetése: ");
                         szerelo.Salary = salary;
-                        Console.WriteLine("fizetésmódosítás megtörtént");
+                        Console.WriteLine("A fizetésmódosítás megtörtént");
 
                     }
                     else
@@ -235,11 +244,13 @@ namespace autoszerviz
 
         static void new_car()
         {
+            C_clear();
             Console.Write("Autó rendszáma: ");
             string rendszam = Console.ReadLine()!;
             Auto auto = szervisz.megszerelt.Find(x => x.LicensePlate == rendszam)!;
             if (auto == null)
             {
+                C_clear();
                 Console.Write("Autó típusa: ");
                 string tipus = Console.ReadLine()!;
                 auto = new Auto(rendszam, tipus);
